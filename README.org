@@ -1,4 +1,5 @@
 #+LANGUAGE: es
+#+TOC:3
 #+TITLE: Instalación de Debian via Debootstrap
 #+AUTHOR: AlexisMtzGasca
 *Una instalación al estilo Arch Linux*
