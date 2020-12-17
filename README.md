@@ -21,6 +21,7 @@ En la terminal escribiremos:
 
 `cfdisk `
 
+
 En este programa llamado cfdisk veremos las particiones que tiene nuestro disco duro y con las flechas de abajo y arriba nos iremos al apartado que dice Free Space, ahí nosotros asignaremos el espacio para nuestra partición EFI, ésta deberá ser mínimo de 100MB, aunque con 150MB es suficiente. Con las flechas de derecha e izquierda nos iremos a New, le damos enter y nos pedirá el tamaño de la partición, le pondremos 150M y posteriormente, le damos enter, una vez hecho eso con las flechas de arriba y abajo nos ponemos encima de la partición que hemos creado y con derecha e izquierda seleccionamos en Type y le ponemos EFI Partition.
 
 
@@ -41,6 +42,7 @@ sda      8:0    0 931.5G  0 disk
 sr0     11:0    1  1024M  0 rom
 
 Una vez creadas las particiones, procederemos a formatear dichas particiones de la siguiente forma:
+
 `mkfs.fat -F32 /dev/sda5`
 
 `mkswap /dev/sda6`
@@ -59,18 +61,21 @@ Vamos a necesitar dos terminales, una para movernos en el sistema que estamos a 
 
 `sudo apt install arch-install-scripts`
 
+
 En una terminal iniciamos un usuario root con sudo -s e instalaremos debootstrap y haremos la mayoría de todo el proceso:
 
 `apt install debootstrap`
 
 `pacman -S debootstrap`
 
-Una vez instalado debootstrap, lo que vamos a hacer es montar nuestras particiones en /mnt
+Una vez instalado debootstrap, lo que vamos a hacer es montar nuestras particiones en /mnt:
+
 `mount /dev/sdXY /mnt` *(sustituir X por nuestro dispositivo que puede ser sda y Y por el número de partición que corresponde a la partición raíz)*
 
 `swapon /dev/sdXY` *(susituir por la partición swap que creamos)*
 
 Para equipos EFI:
+
 `mkdir /mnt/boot`
 
 `mount /dev/sdXY /mnt/boot` *(Susituir por nuestra partición EFI)*
@@ -92,11 +97,16 @@ sr0     11:0    1  1024M  0 rom
 Y en equipos Legacy, así:
 
 Después de eso, ahora procederemos a instalar el sistema base, para eso ejecutamos el siguiente comando:
+
 `debootstrap --arch ARCH VERSION /mnt`
 
+
 **NOTA IMPORTANTE:**
+
 *-Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.*
+
 *-Susituir VERSION por la versión de Debian que queramos, ésta puede ser Stretch, Buster, Testing, Sid, etc.*
+
 
 Este proceso tardará un rato, se descargarán y configurarán los paquetes:
 
