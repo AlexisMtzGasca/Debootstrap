@@ -16,7 +16,8 @@ sudo pacman -S debootstrap
 * Particionamiento del disco
 Primero creamos las particiones, para los usuarios de Arch, Gentoo y otras distros, ésto es cosa sencilla,  de lo contrario aquí va mi explicación. Los usuarios que deseen saltarse este paso, vayan al paso 2, donde empezaré en forma con Debootstrap. 
 
-**a) Sistema EFI**. En un sistema EFI necesitaremos 2 o 3 particiones, una partición EFI que será donde se alojará el gestor de arranque y el kernel, la partición raíz que es donde se alojan todos los archivos del sistema operativo y una partición opcional que es la partición de memoria de intercambio SWAP que puede ser o no una partición porque este espacio de intercambio puede mejor hacerse con un archivo SWAP. En esta guía yo lo haré con la partición SWAP. Si estamos en Windows, debemos previamente reducir nuestra partición principal para tener espacio disponible para la instalación. Para más información sobre cómo reducir el espacio en Windows, busquen en Google.
+** Sistema EFI.
+En un sistema EFI necesitaremos 2 o 3 particiones, una partición EFI que será donde se alojará el gestor de arranque y el kernel, la partición raíz que es donde se alojan todos los archivos del sistema operativo y una partición opcional que es la partición de memoria de intercambio SWAP que puede ser o no una partición porque este espacio de intercambio puede mejor hacerse con un archivo SWAP. En esta guía yo lo haré con la partición SWAP. Si estamos en Windows, debemos previamente reducir nuestra partición principal para tener espacio disponible para la instalación. Para más información sobre cómo reducir el espacio en Windows, busquen en Google.
 
 En la terminal escribiremos:
 #+BEGIN_SRC sh
@@ -50,7 +51,8 @@ swapon /dev/sda6`
 mkfs.ext4 /dev/sda7
 #+END_SRC
 
-**b) Para equipos BIOS:** TODO.
+** Para equipos BIOS:
+=TODO.=
 
 * Instalación del Sistema Base:
 Vamos a necesitar dos terminales, una para movernos en el sistema que estamos a punto de crear y otra para movernos en el nuestro sistema operativo host. También es recomendable, pero no obligatorio, instalar Arch-Install-Scripts para generar el fstab, si el usuario lo desea, lo puede hacer a mano:
@@ -98,11 +100,11 @@ Y en equipos Legacy, así:
 Después de eso, ahora procederemos a instalar el sistema base, para eso ejecutamos el siguiente comando:
 ~debootstrap --arch ARCH VERSION /mnt~
 
-**NOTA IMPORTANTE:**
+*NOTA IMPORTANTE:*
 
-*-Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.*
+*Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.*
 
-*-Susituir VERSION por la versión de Debian que queramos, ésta puede ser Stretch, Buster, Testing, Sid, etc.*
+*Susituir VERSION por la versión de Debian que queramos, ésta puede ser Stretch, Buster, Testing, Sid, etc.*
 
 Este proceso tardará un rato, se descargarán y configurarán los paquetes:
 
@@ -155,7 +157,6 @@ genfstab -U /mnt > /mnt/etc/fstab
 Y podemos verificar el fstab haciendo cat /mnt/etc/fstab y debemos ver nuestras particiones.
 
 Ahora regresando a la terminal donde estamos en chroot, seleccionaremos cómo queremos que sea nuestro horario, si UTC o LOCAL, si tenemos dual boot es recomendable usar LOCAL, de esta forma Windows ajustará el reloj, de lo contrario, UTC es nuestra opción, ésto lo haremos ejecutando:
-
 ~nano /etc/adjtime~
 
 Y poniendo el siguiente texto:
@@ -168,14 +169,11 @@ UTC
 Posteriormente, elegiremos nuestra zona horaria:
 ~dpkg-reconfigure tzdata~
 
-
 Una vez realizado eso, tendremos que ponerle nombre a nuestro equipo, en mi caso se llamará Debian, pero pueden ponerle el nombre que gusten, sólo recordándoles que el nombre no debe contener espacios ni caracteres especiales:
 ~echo "Debian" > /etc/hostname~
 
-
 Una vez hecho, eso, configuramos el archivo /etc/hosts:
 ~nano /etc/hosts~
-
 
 Y debe llevar el siguiente contenido:
 #+BEGIN_EXAMPLE
@@ -271,7 +269,7 @@ Una vez terminada la instalación y configuración, salimos de todas las termina
 
 Hay 2 formas de instalar un entorno gráfico, con una herramienta llamada tasksel que nos dará un entorno completo o de forma manual, yo explicaré por medio de tasksel, pero en breve adjuntaré los pasos a seguir para instalar un entorno como BSPWM
 
-**Consejo (si eres usuario experimentado):** Evitar la instalación de paquetes sugeridos y recomendados en APT de forma permanente.Se deben de poner las siguientes dos líneas en el archivo "/etc/apt/apt.conf.d/99local" (sin comillas). Dicho archivo no existe.
+*Consejo (si eres usuario experimentado):* Evitar la instalación de paquetes sugeridos y recomendados en APT de forma permanente.Se deben de poner las siguientes dos líneas en el archivo "/etc/apt/apt.conf.d/99local" (sin comillas). Dicho archivo no existe.
 #+BEGIN_EXAMPLE
 APT::Install-Suggests "0";
 APT::Install-Recommends "0";
