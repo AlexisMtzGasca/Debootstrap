@@ -317,10 +317,39 @@ Una vez terminada la instalación y configuración, salimos de todas las termina
 
 Hay 2 formas de instalar un entorno gráfico, con una herramienta llamada tasksel que nos dará un entorno completo o de forma manual, yo explicaré por medio de tasksel, pero en breve adjuntaré los pasos a seguir para instalar un entorno como BSPWM
 
-a) Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
+### a) Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
 
-`sudo tasksel`
+sudo tasksel
 
-b) En Breve...
+### b) Instalación de un BSPWM. Para instalar BSPWM, vamos a necesitar primero los paquetes iniciales para un entorno de Xorg:
+```
+sudo apt install xserver-xorg-core
+sudo apt install xterm
+sudo apt install xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
+sudo apt install xserver-xorg-input-libinput
+sudo apt install sxhkd bspwm
+```
+*Y seguimos la guía de configuración de Arch Linux para bspwm*
 
-Muchas gracias por leer la guía
+*https://wiki.archlinux.org/index.php/Bspwm_(Espa%C3%B1ol)*
+
+### c) Instalación de Mínima de GNOME. 
+```
+sudo apt install --no-install-recommends gnome-session
+sudo apt install --no-install-recommends xcursor-themes
+sudo apt install --no-install-recommends dhpcd5
+sudo apt install --no-install-recommends gnome-terminal (o la terminal de preferencia)
+sudo apt install --no-install-recommends unzip
+sudo apt install --no-install-recommends google-chrome-stable (no olvides agregar los repos necesarios)
+sudo apt install --no-install-recommends gdm3 
+sudo systemctl enable gdm3
+sudo systemctl enable dhcpcd
+```
+*Opcional:*
+```
+sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome-themes gnome-terminal gnome-control-center nautilus gnome-icon-theme gnome-software pulseaudio pavucontrol
+```
+### d) Instalación de Plasma Mínimal:
+```
+sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
+```
