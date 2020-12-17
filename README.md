@@ -1,4 +1,6 @@
-# Debootstrap
+# Instalación de Debian via Debootstrap.
+*Una instalación al estilo Arch Linux*
+
 
 ## Introducción:
 
