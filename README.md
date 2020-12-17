@@ -2,12 +2,14 @@
 
 ## Introducción:
 
-Debootstrap es la herramienta que usa el instalador de Debian, es también la forma oficial de instalar un sistema base Debian. Usa wget y ar, pero, salvo esto, sólo depende de */bin/sh* y algunas herramientas básicas de Unix/Linux. Si aún no lo ha hecho, instale wget y ar en su sistema actual, y luego descargue e instale debootstrap. Para la guía necesitaremos iniciar desde un entorno live de Arch, Debian o Ubuntu para la facilidad del usuario e instalar la herramienta debootstrap.
+Debootstrap es la herramienta que usa el instalador de Debian, es también la forma oficial de instalar un sistema base Debian. Usa wget y ar, pero, salvo esto, sólo depende de */bin/sh* y algunas herramientas básicas de Unix/Linux. Para la guía necesitaremos iniciar desde un entorno live de Arch, Debian o Ubuntu para la facilidad del usuario e instalar la herramienta debootstrap.
 
 ```
 sudo apt install debootstrap
 sudo pacman -S debootstrap
 ```
+
+*Nota: En Ubuntu es necesario activar los repositorios universe*
 
 
 ## 1- Partición del disco
@@ -164,7 +166,10 @@ ln -s media/cdrom
 
 En la otra terminal, generamos el fstab con el script de arch, de la siguiente forma:
 
-`sudo genfstab -U /mnt > /mnt/etc/fstab`
+```
+sudo -s
+genfstab -U /mnt > /mnt/etc/fstab
+```
 
 Y podemos verificar el fstab haciendo cat /mnt/etc/fstab y debemos ver nuestras particiones.
 
