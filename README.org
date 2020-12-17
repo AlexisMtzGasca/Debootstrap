@@ -1,10 +1,4 @@
 #+LANGUAGE: es
-#+LaTeX_CLASS: article
-#+LaTeX_HEADER: \pdfmapfile{/home/neilsen/texmf/fonts/map/dvips/libertine/libertine.map}
-#+LaTeX_HEADER: \usepackage[ttscale=.875]{libertine}
-#+LaTeX_HEADER: \usepackage{sectsty}
-#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}
-#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}
 #+TITLE: Instalación de Debian via Debootstrap
 #+AUTHOR: AlexisMtzGasca
 *Una instalación al estilo Arch Linux*
