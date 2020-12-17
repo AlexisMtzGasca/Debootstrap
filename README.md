@@ -352,4 +352,5 @@ sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome
 ### d) Instalación de Plasma Mínimal:
 ```
 sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
+sudo systemctl enable lightdm
 ```
