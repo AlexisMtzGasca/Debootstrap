@@ -17,6 +17,7 @@ a) Sistema EFI. En un sistema EFI necesitaremos 2 o 3 particiones, una partició
 En la terminal escribiremos:
 
 `sudo -s`
+
 `cfdisk `
 
 En este programa llamado cfdisk veremos las particiones que tiene nuestro disco duro y con las flechas de abajo y arriba nos iremos al apartado que dice Free Space, ahí nosotros asignaremos el espacio para nuestra partición EFI, ésta deberá ser mínimo de 100MB, aunque con 150MB es suficiente. Con las flechas de derecha e izquierda nos iremos a New, le damos enter y nos pedirá el tamaño de la partición, le pondremos 150M y posteriormente, le damos enter, una vez hecho eso con las flechas de arriba y abajo nos ponemos encima de la partición que hemos creado y con derecha e izquierda seleccionamos en Type y le ponemos EFI Partition.
@@ -25,7 +26,7 @@ Una vez creada la partición EFI, procederemos con la partición SWAP. Para los 
 
 Por último crearemos la partición Raíz. En este caso cuando nos pida el tamaño de la partición, no se lo daremos, sólo le daremos enter para que se le asgine todo el espacio libre restante del disco duro y en el tipo de partición sólo nos aseguramos que esté en Linux Filesystem. Una vez creadas las particiones verificamos que todo sea correcto y nos vamos con las flechas de derecha e izquierda a la opción que dice write, escribimos yes y saldremos de ahí. Podemos verificar una vez más con el comando lsblk nuestra tabla de particiones, que quedaría más o menos así:
 
-*NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 931.5G  0 disk
 ├─sda1   8:1    0   100M  0 part
 ├─sda2   8:2    0    16M  0 part
@@ -34,13 +35,16 @@ sda      8:0    0 931.5G  0 disk
 ├─sda5   8:5    0   150M  0 part 
 ├─sda6   8:6    0     2G  0 part 
 └─sda7   8:7    0  46.9G  0 part
-sr0     11:0    1  1024M  0 rom*
+sr0     11:0    1  1024M  0 rom
 
 Una vez creadas las particiones, procederemos a formatear dichas particiones de la siguiente forma:
-`mkfs.fat -F32 /dev/sda5
-mkswap /dev/sda6
-swapon /dev/sda6
-mkfs.ext4 /dev/sda7`
+`mkfs.fat -F32 /dev/sda5`
+
+`mkswap /dev/sda6`
+
+`swapon /dev/sda6`
+
+`mkfs.ext4 /dev/sda7`
 
 b) Para equipos BIOS:
 
@@ -48,21 +52,25 @@ b) Para equipos BIOS:
 
 Vamos a necesitar dos terminales, una para movernos en el sistema que estamos a punto de crear y otra para movernos en el nuestro sistema operativo host. También es recomendable, pero no obligatorio, instalar Arch-Install-Scripts para generar el fstab, si el usuario lo desea, lo puede hacer a mano:
 
-`sudo pacman -S arch-install-scripts
-sudo apt install arch-install-scripts`
+`sudo pacman -S arch-install-scripts`
+
+`sudo apt install arch-install-scripts`
 
 En una terminal iniciamos un usuario root con sudo -s e instalaremos debootstrap y haremos la mayoría de todo el proceso:
 
-`apt install debootstrap
-pacman -S debootstrap`
+`apt install debootstrap`
+
+`pacman -S debootstrap`
 
 Una vez instalado debootstrap, lo que vamos a hacer es montar nuestras particiones en /mnt
-mount /dev/sdXY /mnt (sustituir X por nuestro dispositivo que puede ser sda y Y por el número de partición que corresponde a la partición raíz)
-swapon /dev/sdXY (susituir por la partición swap que creamos)
+`mount /dev/sdXY /mnt` *(sustituir X por nuestro dispositivo que puede ser sda y Y por el número de partición que corresponde a la partición raíz)*
 
-*Para equipos EFI:
-mkdir /mnt/boot
-mount /dev/sdXY /mnt/boot (Susituir por nuestra partición EFI)
+`swapon /dev/sdXY` *(susituir por la partición swap que creamos)*
+
+Para equipos EFI:
+`mkdir /mnt/boot`
+
+`mount /dev/sdXY /mnt/boot` *(Susituir por nuestra partición EFI)*
 
 Nota: Muchos van a diferir en que ésta partición puede ser montada en /mnt/boot/efi, eso lo dejo en consideración de cada quien
 
@@ -81,7 +89,7 @@ sr0     11:0    1  1024M  0 rom
 Y en equipos Legacy, así:
 
 Después de eso, ahora procederemos a instalar el sistema base, para eso ejecutamos el siguiente comando:
-debootstrap --arch ARCH VERSION /mnt
+`debootstrap --arch ARCH VERSION /mnt`
 
 NOTA IMPORTANTE:
 -Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.
@@ -93,20 +101,33 @@ Este proceso tardará un rato, se descargarán y configurarán los paquetes:
 
 Una vez instalado el Sistema Base tendremos que configurarlo para que se adapte a nuestras necesidades, para eso tendremos que hacer chroot a nuestro sistema de la siguiente forma:
 
-mount --types proc /proc /mnt/proc
-mount --rbind /sys /mnt/sys
-mount --make-rslave /mnt/sys
-mount --rbind /dev /mnt/dev
-mount --make-rslave /mnt/dev
-test -L /dev/shm && rm /dev/shm && mkdir /dev/shm
-mount --types tmpfs --options nosuid,nodev,noexec shm /dev/shm
-chmod 1777 /dev/shm
-chroot /mnt /bin/bash
+`mount --types proc /proc /mnt/proc`
 
-source /etc/profile
-export PS1="(chroot) ${PS1}"
-export TERM=xterm-color
-export LANG=C.UTF-8
+`mount --rbind /sys /mnt/sys`
+
+`mount --make-rslave /mnt/sys`
+
+`mount --rbind /dev /mnt/dev`
+
+`mount --make-rslave /mnt/dev`
+
+`test -L /dev/shm && rm /dev/shm && mkdir /dev/shm`
+
+`mount --types tmpfs --options nosuid,nodev,noexec shm /dev/shm`
+
+`chmod 1777 /dev/shm`
+
+`chroot /mnt /bin/bash`
+
+
+`source /etc/profile`
+
+`export PS1="(chroot) ${PS1}"`
+
+`export TERM=xterm-color`
+
+`export LANG=C.UTF-8`
+
 
 Podemos verificar que estamos en el nuevo sistema ejecutando lsblk y tendremos algo así:
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -120,122 +141,175 @@ sda      8:0    0 931.5G  0 disk
 ├─sda7   8:7    0  44.7G  0 part /
 
 Los sistemas Debian actuales tienen puntos de montaje para medios extraíbles bajo /media, pero mantienen enlaces simbólicos por compatibilidad en /. Así que los creamos así:
-cd /media
-mkdir cdrom0
-ln -s cdrom0 cdrom
-cd /
-ln -s media/cdrom 
+
+`cd /media`
+
+`mkdir cdrom0`
+
+`ln -s cdrom0 cdrom`
+
+`cd /`
+
+`ln -s media/cdrom `
+
 
 En la otra terminal, generamos el fstab con el script de arch, de la siguiente forma:
-sudo genfstab -U /mnt > /mnt/etc/fstab
+
+`sudo genfstab -U /mnt > /mnt/etc/fstab`
 
 Y podemos verificar el fstab haciendo cat /mnt/etc/fstab y debemos ver nuestras particiones.
 
 Ahora regresando a la terminal donde estamos en chroot, seleccionaremos cómo queremos que sea nuestro horario, si UTC o LOCAL, si tenemos dual boot es recomendable usar LOCAL, de esta forma Windows ajustará el reloj, de lo contrario, UTC es nuestra opción, ésto lo haremos ejecutando:
 
-nano /etc/adjtime
+`nano /etc/adjtime`
 
 Y poniendo el siguiente texto:
 
-0.0 0 0.0
-0
-UTC
+*0.0 0 0.0*
+
+*0*
+
+*UTC*
+
 
 Posteriormente, elegiremos nuestra zona horaria:
 
-dpkg-reconfigure tzdata
+`dpkg-reconfigure tzdata`
+
 
 Una vez realizado eso, tendremos que ponerle nombre a nuestro equipo, en mi caso se llamará Debian, pero pueden ponerle el nombre que gusten, sólo recordándoles que el nombre no debe contener espacios ni caracteres especiales:
 
-echo "Debian" > /etc/hostname
+`echo "Debian" > /etc/hostname`
+
 
 Una vez hecho, eso, configuramos el archivo /etc/hosts:
 
-nano /etc/hosts
+`nano /etc/hosts`
+
 
 Y debe llevar el siguiente contenido:
 
-127.0.0.1 localhost
-127.0.1.1 Debian 
-# Sustituir Debian por el nombre del equipo que elegimos
+*127.0.0.1 localhost*
 
-::1     ip6-localhost ip6-loopback
-fe00::0 ip6-localnet
-ff00::0 ip6-mcastprefix
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-ff02::3 ip6-allhosts
+
+*127.0.1.1 Debian*
+
+*# Sustituir Debian por el nombre del equipo que elegimos*
+
+
+*::1     ip6-localhost ip6-loopback*
+
+*fe00::0 ip6-localnet*
+
+*ff00::0 ip6-mcastprefix*
+
+*ff02::1 ip6-allnodes*
+
+*ff02::2 ip6-allrouters*
+
+*ff02::3 ip6-allhosts*
+
 
 Ya que hayamos hecho eso, toca configurar los repositorios de apt, para eso ejecutaremos:
 
-nano /etc/apt/sources.list
+`nano /etc/apt/sources.list`
 
 Y pondremos los repositorios correspondientes, les dejaré a continuación un enlace para generar los repositorios dependiendo de la versión de Debian que hayamos elegido:
 
+*https://debgen.simplylinux.ch/*
+
 Posteriormente configuraremos el idioma (locales) y el teclado ejecutando los siguientes comandos:
 
-apt update
-apt install locales
-dpkg-reconfigure locales
+`apt update`
+
+`apt install locales`
+
+`dpkg-reconfigure locales`
+
 
 Seleccionamos nuestro idioma correspondiente, en mi caso es es_MX.UTF-8. es se refiere a Español y MX a mi región que es México, UTF a la decodificación de caracteres, en el menú que aparece siempre seleccionaremos nuestra región. Luego ejecutamos:
 
-apt install console-setup
+`apt install console-setup`
+
 
 Y si no nos aparece el menú, ejecutamos:
-dpkg-reconfigure keyboard-configuration 
+
+`dpkg-reconfigure keyboard-configuration`
+
 
 Si tenemos teclado en inglés, lo seleccionamos, si no, ponemos en otro y buscamos la distribución de nuestro teclado, en mi caso elegí Español Latinoamericano.
 
 4- Instalación del Kernel Linux y configuración de GRUB:
 
 Primeramente instalamos los paquetes para nuestros sistemas de archivos:
-apt install dosfstools 
-apt install efivar (si tenemos un sistema EFI)
+
+`apt install dosfstools`
+
+`apt install efivar` *(si tenemos un sistema EFI)*
+
 
 La guía oficial de Debootstrap nos sugiere la busqueda de un kernel, así que podemos hacerlo con:
-apt search linux-image
+
+`apt search linux-image`
+
 
 Y luego instalarlo con:
-apt install linux-image-(el que elegimos)
+
+`apt install linux-image-(el que elegimos)`
 
 
 O bien, instalar el genérico, que es el que yo usaré en la guía, podemos hacerlo con:
-apt install linux-image-generic
+
+`apt install linux-image-generic`
+
 
 Una vez instalado el kernel, procederemos a instalar GRUB. Si nuestro equipo es efi:
-apt install grub-efi os-prober ntfs-3g
+
+`apt install grub-efi os-prober ntfs-3g`
 
 Si es Legacy:
-apt install grub-pc
+
+`apt install grub-pc`
 
 Luego crearemos la entrada en el sistema EFI y las entradas de GRUB
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
+`grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB`
+
+`grub-mkconfig -o /boot/grub/grub.cfg`
+
 
 Si nuestro equipo es Legacy:
-grub-install /dev/sda
-update-grub
+
+`grub-install /dev/sda`
+
+`update-grub`
+
 
 5- Creación del usuario, instalación de sudo:
 
 Instalaremos el firmware nonfree, requerido por la mayoría de la mayoría de los equipos e instalaremos sudo y Network Manager para el acceso a internet:
-apt install sudo firmware-linux-nonfree network-manager
+
+`apt install sudo firmware-linux-nonfree network-manager`
+
 
 Luego configuraremos la contraseña para root ejecutando:
-passwd
+`passwd`
+
 
 A continuación crearemos nuestro usuario, crearemos el grupo admin (requerido por sudo):
 
-adduser usuario (sustituir usuario por el nombre que queramos)
-addgroup --system admin
-adduser usuario admin
+`adduser usuario (sustituir usuario por el nombre que queramos)`
+
+`addgroup --system admin`
+
+`adduser usuario admin`
 
 Una vez hecho ésto, le indicaremos a sudo que todos los usuarios del grupo admin pueden tener acceso a sudo, ejecutamos visudo y agregamos las siguientes lineas:
 
-# Members of the admin group may gain root privileges
-%admin ALL=(ALL) ALL
+*# Members of the admin group may gain root privileges*
+
+*%admin ALL=(ALL) ALL*
+
 
 6- Instalación del Entorno de Escritorio:
 
@@ -245,4 +319,8 @@ Hay 2 formas de instalar un entorno gráfico, con una herramienta llamada taskse
 
 a) Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
 
-sudo tasksel
+`sudo tasksel`
+
+b) En Breve...
+
+Muchas gracias por leer la guía
