@@ -322,17 +322,24 @@ Una vez terminada la instalación y configuración, salimos de todas las termina
 
 Hay 2 formas de instalar un entorno gráfico, con una herramienta llamada tasksel que nos dará un entorno completo o de forma manual, yo explicaré por medio de tasksel, pero en breve adjuntaré los pasos a seguir para instalar un entorno como BSPWM
 
+**Consejo (si eres usuario experimentado):** Evitar la instalación de paquetes sugeridos y recomendados en APT de forma permanente.Se deben de poner las siguientes dos líneas en el archivo "/etc/apt/apt.conf.d/99local" (sin comillas). Dicho archivo no existe.
+
+```
+APT::Install-Suggests "0";
+APT::Install-Recommends "0";
+```
+
 ### a) Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
 
 sudo tasksel
 
 ### b) Instalación de un BSPWM. Para instalar BSPWM, vamos a necesitar primero los paquetes iniciales para un entorno de Xorg:
 ```
-sudo apt install xserver-xorg-core
-sudo apt install xterm
-sudo apt install xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
-sudo apt install xserver-xorg-input-libinput
-sudo apt install sxhkd bspwm
+sudo apt install --no-install-recommends xserver-xorg-core
+sudo apt install --no-install-recommends xterm
+sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
+sudo apt install --no-install-recommends xserver-xorg-input-libinput
+sudo apt install --no-install-recommends sxhkd bspwm
 ```
 *Y seguimos la guía de configuración de Arch Linux para bspwm*
 
@@ -340,6 +347,7 @@ sudo apt install sxhkd bspwm
 
 ### c) Instalación de Mínima de GNOME. 
 ```
+sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
 sudo apt install --no-install-recommends gnome-session
 sudo apt install --no-install-recommends xcursor-themes
 sudo apt install --no-install-recommends dhpcd5
@@ -356,6 +364,7 @@ sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome
 ```
 ### d) Instalación de Mínima de KDE Plasma:
 ```
+sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
 sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
 sudo systemctl enable lightdm
 ```
