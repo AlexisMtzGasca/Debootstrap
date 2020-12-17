@@ -1,6 +1,6 @@
 # Debootstrap
 
-Introducción:
+## Introducción:
 
 Debootstrap es la herramienta que usa el instalador de Debian, es también la forma oficial de instalar un sistema base Debian. Usa wget y ar, pero, salvo esto, sólo depende de */bin/sh* y algunas herramientas básicas de Unix/Linux. Si aún no lo ha hecho, instale wget y ar en su sistema actual, y luego descargue e instale debootstrap. Para la guía necesitaremos iniciar desde un entorno live de Arch, Debian o Ubuntu para la facilidad del usuario e instalar la herramienta debootstrap.
 
@@ -8,11 +8,12 @@ Debootstrap es la herramienta que usa el instalador de Debian, es también la fo
 
 `sudo pacman -S debootstrap`
 
-1- Partición del disco
+
+## 1- Partición del disco
 
 Primero creamos las particiones, para los usuarios de Arch, Gentoo y otras distros, ésto es cosa sencilla,  de lo contrario aquí va mi explicación. Los usuarios que deseen saltarse este paso, vayan al paso 2, donde empezaré en forma con Debootstrap. 
 
-a) Sistema EFI. En un sistema EFI necesitaremos 2 o 3 particiones, una partición EFI que será donde se alojará el gestor de arranque y el kernel, la partición raíz que es donde se alojan todos los archivos del sistema operativo y una partición opcional que es la partición de memoria de intercambio SWAP que puede ser o no una partición porque este espacio de intercambio puede mejor hacerse con un archivo SWAP. En esta guía yo lo haré con la partición SWAP. Si estamos en Windows, debemos previamente reducir nuestra partición principal para tener espacio disponible para la instalación. Para más información sobre cómo reducir el espacio en Windows, busquen en Google.
+**a) Sistema EFI**. En un sistema EFI necesitaremos 2 o 3 particiones, una partición EFI que será donde se alojará el gestor de arranque y el kernel, la partición raíz que es donde se alojan todos los archivos del sistema operativo y una partición opcional que es la partición de memoria de intercambio SWAP que puede ser o no una partición porque este espacio de intercambio puede mejor hacerse con un archivo SWAP. En esta guía yo lo haré con la partición SWAP. Si estamos en Windows, debemos previamente reducir nuestra partición principal para tener espacio disponible para la instalación. Para más información sobre cómo reducir el espacio en Windows, busquen en Google.
 
 En la terminal escribiremos:
 
@@ -22,7 +23,9 @@ En la terminal escribiremos:
 
 En este programa llamado cfdisk veremos las particiones que tiene nuestro disco duro y con las flechas de abajo y arriba nos iremos al apartado que dice Free Space, ahí nosotros asignaremos el espacio para nuestra partición EFI, ésta deberá ser mínimo de 100MB, aunque con 150MB es suficiente. Con las flechas de derecha e izquierda nos iremos a New, le damos enter y nos pedirá el tamaño de la partición, le pondremos 150M y posteriormente, le damos enter, una vez hecho eso con las flechas de arriba y abajo nos ponemos encima de la partición que hemos creado y con derecha e izquierda seleccionamos en Type y le ponemos EFI Partition.
 
+
 Una vez creada la partición EFI, procederemos con la partición SWAP. Para los equipos de bajos recursos se recomienda que tenga un tamaño del doble de la memoria RAM, en caso contrario con 2 o 3GB será suficiente, así que repetimos los pasos que hicimos para crear la partición EFI, pero en lugar de asignarle 150M, le asignaremos 2G (en mi caso porque tengo 8GB de RAM), y en el tipo, le ponemos Linux SWAP.
+
 
 Por último crearemos la partición Raíz. En este caso cuando nos pida el tamaño de la partición, no se lo daremos, sólo le daremos enter para que se le asgine todo el espacio libre restante del disco duro y en el tipo de partición sólo nos aseguramos que esté en Linux Filesystem. Una vez creadas las particiones verificamos que todo sea correcto y nos vamos con las flechas de derecha e izquierda a la opción que dice write, escribimos yes y saldremos de ahí. Podemos verificar una vez más con el comando lsblk nuestra tabla de particiones, que quedaría más o menos así:
 
@@ -46,9 +49,9 @@ Una vez creadas las particiones, procederemos a formatear dichas particiones de 
 
 `mkfs.ext4 /dev/sda7`
 
-b) Para equipos BIOS:
+**b) Para equipos BIOS:**
 
-2- Instalación del Sistema Base:
+## 2- Instalación del Sistema Base:
 
 Vamos a necesitar dos terminales, una para movernos en el sistema que estamos a punto de crear y otra para movernos en el nuestro sistema operativo host. También es recomendable, pero no obligatorio, instalar Arch-Install-Scripts para generar el fstab, si el usuario lo desea, lo puede hacer a mano:
 
@@ -72,7 +75,7 @@ Para equipos EFI:
 
 `mount /dev/sdXY /mnt/boot` *(Susituir por nuestra partición EFI)*
 
-Nota: Muchos van a diferir en que ésta partición puede ser montada en /mnt/boot/efi, eso lo dejo en consideración de cada quien
+*Nota: Muchos van a diferir en que ésta partición puede ser montada en /mnt/boot/efi, eso lo dejo en consideración de cada quien*
 
 Una vez montadas nuestras particiones siempre es bueno verificar con lsblk, en equipos EFI quedaría algo asi:
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -91,13 +94,13 @@ Y en equipos Legacy, así:
 Después de eso, ahora procederemos a instalar el sistema base, para eso ejecutamos el siguiente comando:
 `debootstrap --arch ARCH VERSION /mnt`
 
-NOTA IMPORTANTE:
--Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.
--Susituir VERSION por la versión de Debian que queramos, ésta puede ser Stretch, Buster, Testing, Sid, etc.
+**NOTA IMPORTANTE:**
+*-Susituir ARCH por la arquitectura de nuestro procesador, éste puede ser amd64, arm64, armel, armhf, i386, mips, mips64el, mipsel, powerpc, ppc64el, o s390x.*
+*-Susituir VERSION por la versión de Debian que queramos, ésta puede ser Stretch, Buster, Testing, Sid, etc.*
 
 Este proceso tardará un rato, se descargarán y configurarán los paquetes:
 
-3- Configuración del Sistema Base
+## 3- Configuración del Sistema Base
 
 Una vez instalado el Sistema Base tendremos que configurarlo para que se adapte a nuestras necesidades, para eso tendremos que hacer chroot a nuestro sistema de la siguiente forma:
 
@@ -239,7 +242,7 @@ Y si no nos aparece el menú, ejecutamos:
 
 Si tenemos teclado en inglés, lo seleccionamos, si no, ponemos en otro y buscamos la distribución de nuestro teclado, en mi caso elegí Español Latinoamericano.
 
-4- Instalación del Kernel Linux y configuración de GRUB:
+## 4- Instalación del Kernel Linux y configuración de GRUB:
 
 Primeramente instalamos los paquetes para nuestros sistemas de archivos:
 
@@ -285,7 +288,7 @@ Si nuestro equipo es Legacy:
 `update-grub`
 
 
-5- Creación del usuario, instalación de sudo:
+## 5- Creación del usuario, instalación de sudo:
 
 Instalaremos el firmware nonfree, requerido por la mayoría de la mayoría de los equipos e instalaremos sudo y Network Manager para el acceso a internet:
 
@@ -311,7 +314,7 @@ Una vez hecho ésto, le indicaremos a sudo que todos los usuarios del grupo admi
 *%admin ALL=(ALL) ALL*
 
 
-6- Instalación del Entorno de Escritorio:
+## 6- Instalación del Entorno de Escritorio:
 
 Una vez terminada la instalación y configuración, salimos de todas las terminales, ejecutamos umount -a y reiniciamos el equipo para poder acceder a nuestro sistema recién instalado. Nos pedirá el usuario y contraseña, lo escribimos y habremos logueado al fin.
 
