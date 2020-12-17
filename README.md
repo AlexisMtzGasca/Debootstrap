@@ -12,7 +12,7 @@ sudo pacman -S debootstrap
 *Nota: En Ubuntu es necesario activar los repositorios universe*
 
 
-## 1- Partición del disco
+## 1- Particionamiento del disco
 
 Primero creamos las particiones, para los usuarios de Arch, Gentoo y otras distros, ésto es cosa sencilla,  de lo contrario aquí va mi explicación. Los usuarios que deseen saltarse este paso, vayan al paso 2, donde empezaré en forma con Debootstrap. 
 
@@ -348,6 +348,7 @@ sudo apt install --no-install-recommends sxhkd bspwm
 ### c) Instalación de Mínima de GNOME. 
 ```
 sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
+sudo apt install --no-install-recommends xserver-xorg-input-libinput
 sudo apt install --no-install-recommends gnome-session
 sudo apt install --no-install-recommends xcursor-themes
 sudo apt install --no-install-recommends dhpcd5
@@ -365,6 +366,7 @@ sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome
 ### d) Instalación de Mínima de KDE Plasma:
 ```
 sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
+sudo apt install --no-install-recommends xserver-xorg-input-libinput
 sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
 sudo systemctl enable lightdm
 ```
