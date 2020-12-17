@@ -349,7 +349,7 @@ sudo systemctl enable dhcpcd
 ```
 sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome-themes gnome-terminal gnome-control-center nautilus gnome-icon-theme gnome-software pulseaudio pavucontrol
 ```
-### d) Instalación de Plasma Mínimal:
+### d) Instalación de Mínima de KDE Plasma:
 ```
 sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
 sudo systemctl enable lightdm
