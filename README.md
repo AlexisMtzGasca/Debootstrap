@@ -4,7 +4,8 @@ Introducción:
 
 Debootstrap es la herramienta que usa el instalador de Debian, es también la forma oficial de instalar un sistema base Debian. Usa wget y ar, pero, salvo esto, sólo depende de */bin/sh* y algunas herramientas básicas de Unix/Linux. Si aún no lo ha hecho, instale wget y ar en su sistema actual, y luego descargue e instale debootstrap. Para la guía necesitaremos iniciar desde un entorno live de Arch, Debian o Ubuntu para la facilidad del usuario e instalar la herramienta debootstrap.
 
-`sudo apt install debootstrap
+`sudo apt install debootstrap`
+
 `sudo pacman -S debootstrap`
 
 1- Partición del disco
