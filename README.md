@@ -353,7 +353,7 @@ sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarje
 sudo apt install --no-install-recommends xserver-xorg-input-libinput
 sudo apt install --no-install-recommends gnome-session
 sudo apt install --no-install-recommends xcursor-themes
-sudo apt install --no-install-recommends dhpcd5
+sudo apt install --no-install-recommends dhcpd
 sudo apt install --no-install-recommends gnome-terminal (o la terminal de preferencia)
 sudo apt install --no-install-recommends unzip
 sudo apt install --no-install-recommends google-chrome-stable (no olvides agregar los repos necesarios)
