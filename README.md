@@ -1,21 +1,20 @@
 # Índice
 
--   [Introducción:](#org17cb0c7)
+-   [Introducción](#org17cb0c7)
 -   [Particionamiento del disco](#orgc6fcbe2)
 	-   [Sistema EFI.](#orgb2f5339)
-	-   [Para equipos BIOS:](#org7001bbd)
--   [Instalación del Sistema Base:](#org6fe7a88)
+	-   [Para equipos BIOS](#org7001bbd)
+-   [Instalación del Sistema Base](#org6fe7a88)
 -   [Configuración del Sistema Base](#orgb724152)
--   [Instalación del Kernel Linux y configuración de GRUB:](#org72394dc)
--   [Creación del usuario, instalación de sudo:](#orgf60c090)
--   [Instalación del Entorno de Escritorio:](#orgb3d3e17)
-	-   [Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:](#org2c38f61)
-	-   [Instalación de un BSPWM. Para instalar BSPWM, vamos a necesitar primero los paquetes iniciales para un entorno de Xorg:](#orgc5f4760)
-	-   [Instalación de Mínima de GNOME.](#orge07bcc9)
-	-   [Instalación de Mínima de KDE Plasma:](#org984cafe)
+-   [Instalación del Kernel Linux y configuración de GRUB](#org72394dc)
+-   [Creación del usuario, instalación de sudo](#orgf60c090)
+-   [Instalación del Entorno de Escritorio](#orgb3d3e17)
+	-   [Tasksel,](#org2c38f61)
+	-   [Instalación de un BSPWM](#orgc5f4760)
+	-   [Instalación de Mínima de GNOME](#orge07bcc9)
+	-   [Instalación de Mínima de KDE Plasma](#org984cafe)
 
 **Una instalación al estilo Arch Linux**
-
 
 <a id="org17cb0c7"></a>
 
@@ -304,14 +303,17 @@ Hay 2 formas de instalar un entorno gráfico, con una herramienta llamada taskse
 
 <a id="org2c38f61"></a>
 
-## Tasksel, se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
+## Tasksel
+Se trata de un menú en NCurses que nos dará una lista de entornos de escritorio disponibles, sólo es cuestión de darle siguiente y siguiente y tasksel se encargará del resto:
 
 `sudo tasksel`
 
 
 <a id="orgc5f4760"></a>
 
-## Instalación de un BSPWM. Para instalar BSPWM, vamos a necesitar primero los paquetes iniciales para un entorno de Xorg:
+## Instalación de un BSPWM.
+
+	Para instalar BSPWM, vamos a necesitar primero los paquetes iniciales para un entorno de Xorg:
 
 	sudo apt install --no-install-recommends xserver-xorg-core
 	sudo apt install --no-install-recommends xterm
