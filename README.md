@@ -354,6 +354,7 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
 	sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
 	sudo systemctl enable lightdm
 
+<a id="#orge412uwuu"></a>
 ## Instalación de Mínima de XFCE4: 
         sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
 	sudo apt install --no-install-recommends xserver-xorg-input-libinput
