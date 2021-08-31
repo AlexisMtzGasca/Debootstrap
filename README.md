@@ -363,11 +363,10 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
         sudo apt install --no-install-recommends xfwm4
         sudo apt install --no-install-recommends xfdesktop4
         sudo apt install --no-install-recommends xfce4-panel
-        sudo apt install --no-install-recommends xfce4-whiskermenu-plugin 
         sudo apt install --no-install-recommend lightdm
         sudo systemctl enable lightdm
 	
 
 **Opcional**
 
-        sudo apt install --no-install-recommends xfce4-setting xfce4-pulseaudio-plugin xfce4-appfinder thunar xfconf pulseaudio
+        sudo apt install --no-install-recommends xfce4-setting xfce4-pulseaudio-plugin xfce4-appfinder thunar xfconf pulseaudio xfce4-whiskermenu-plugin
