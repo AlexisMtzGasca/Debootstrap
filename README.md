@@ -13,6 +13,7 @@
 	-   [Instalación de un BSPWM](#orgc5f4760)
 	-   [Instalación de Mínima de GNOME](#orge07bcc9)
 	-   [Instalación de Mínima de KDE Plasma](#org984cafe)
+	-   [Instalación de Mínima de XFCE4](#orgxfce4min)
 
 **Una instalación al estilo Arch Linux**
 
@@ -344,7 +345,6 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
 
 	sudo apt install --no-install-recommends libgl1-mesa-dri x11-xserver-utils gnome-themes gnome-terminal gnome-control-center nautilus gnome-icon-theme gnome-software pulseaudio pavucontrol
 
-
 <a id="org984cafe"></a>
 
 ## Instalación de Mínima de KDE Plasma:
@@ -353,3 +353,20 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
 	sudo apt install --no-install-recommends xserver-xorg-input-libinput
 	sudo apt install --no-install-recommends kde-plasma-desktop lightdm plasma-nm
 	sudo systemctl enable lightdm
+	
+<a id="orgxfce4min"></a>
+
+## Instalación de Mínima de XFCE4: 
+        sudo apt install --no-install-recommends xserver-xorg-video-amdgpu # Si tu tarjeta gráfica es intel, cambiamos amdgpu por intel
+        sudo apt install --no-install-recommends xserver-xorg-input-libinput
+        sudo apt install --no-install-recommends xfce4-session
+        sudo apt install --no-install-recommends xfwm4
+        sudo apt install --no-install-recommends xfdesktop4
+        sudo apt install --no-install-recommends xfce4-panel
+        sudo apt install --no-install-recommend lightdm
+        sudo systemctl enable lightdm
+	
+
+**Opcional**
+
+        sudo apt install --no-install-recommends xfce4-setting xfce4-pulseaudio-plugin xfce4-appfinder thunar xfconf pulseaudio xfce4-whiskermenu-plugin
