@@ -371,7 +371,8 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
 
         sudo apt install --no-install-recommends xfce4-setting xfce4-pulseaudio-plugin xfce4-appfinder thunar xfconf pulseaudio xfce4-whiskermenu-plugin
 	
-##
+## Contribuidores
+Este es el pequeño equipo encargado de aportar información para la guía de instalación de Debian y derivados por medio de debootstrap.
 
 <a href="https://github.com/AlexisMtzGasca/Debootstrap/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=AlexisMtzGasca/Debootstrap" />
