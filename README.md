@@ -370,3 +370,11 @@ Se trata de un menú en NCurses que nos dará una lista de entornos de escritori
 **Opcional**
 
         sudo apt install --no-install-recommends xfce4-setting xfce4-pulseaudio-plugin xfce4-appfinder thunar xfconf pulseaudio xfce4-whiskermenu-plugin
+	
+##
+
+<a href="https://github.com/AlexisMtzGasca/Debootstrap/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AlexisMtzGasca/Debootstrap" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
