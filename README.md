@@ -96,7 +96,7 @@ En una terminal iniciamos un usuario root con sudo -s e instalaremos debootstrap
 Una vez instalado debootstrap, lo que vamos a hacer es montar nuestras particiones en /mnt:
 
 	mount /dev/sdXY /mnt (sustituir X por nuestro dispositivo que puede ser sda y Y por el número de partición que corresponde a la partición raíz)
-	swapon /dev/sdXY (susituir por la partición swap que creamos)
+	swapon /dev/sdXY (susituir por la partición swap que creamos, si actualmente usas un SSD omite este paso.)
 
 Para equipos EFI:
 
